@@ -1,0 +1,35 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Next.js build & cache
+/.next/
+/out/
+/build
+
+# Playwright & test captures
+/.playwright-mcp/
+noirel-*.png
+reference-*.png
+
+# Debug logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Environment variables
+.env
+.env*.local
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+
+# OS generated files
+.DS_Store
+Thumbs.db
