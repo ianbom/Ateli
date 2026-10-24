@@ -3,8 +3,10 @@
 import React, { useState } from "react";
 import { projects } from "@/data/projects";
 import { ProjectCard } from "@/components/projects/project-card";
+import { ScrollReveal } from "@/components/motion/scroll-reveal";
 
 const CATEGORIES = ["ALL", "RESIDENTIAL", "HOSPITALITY", "COMMERCIAL"] as const;
+const CARD_DIRECTIONS: Array<"up" | "right" | "down"> = ["up", "right", "down"];
 
 export default function ProjectsArchivePage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
@@ -21,7 +23,7 @@ export default function ProjectsArchivePage() {
       <div className="w-full max-w-[1920px] mx-auto">
         {/* Archive Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-8 border-b border-[#1C1C1C] pb-10">
-          <div>
+          <ScrollReveal direction="up" distance={16} duration={0.7}>
             <div className="flex items-center gap-2 mb-3">
               <span className="w-1.5 h-1.5 bg-[#F2F0EB] inline-block" />
               <span className="text-[12px] font-normal tracking-[0.05em] text-[#A6A39D] uppercase">
@@ -34,10 +36,10 @@ export default function ProjectsArchivePage() {
             <p className="text-[14px] text-[#777570] font-light mt-2 tracking-wide">
               Interior architecture & spatial commissions (2023 — 2026)
             </p>
-          </div>
+          </ScrollReveal>
 
           {/* Filter Pills */}
-          <div className="flex flex-wrap items-center gap-2">
+          <ScrollReveal direction="up" distance={10} duration={0.6} delay={0.2} className="flex flex-wrap items-center gap-2">
             {CATEGORIES.map((cat) => {
               const active = selectedCategory === cat;
               return (
@@ -55,13 +57,18 @@ export default function ProjectsArchivePage() {
                 </button>
               );
             })}
-          </div>
+          </ScrollReveal>
         </div>
 
-        {/* 3-Column Project Grid */}
+        {/* 3-Column Project Grid with Directional Reveals */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {filteredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+          {filteredProjects.map((project, idx) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              direction={CARD_DIRECTIONS[idx % CARD_DIRECTIONS.length]}
+              delay={(idx % 6) * 0.08}
+            />
           ))}
         </div>
       </div>

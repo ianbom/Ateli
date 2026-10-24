@@ -3,6 +3,9 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { FooterCrossEmblem } from "@/components/ui/brand-logo";
 import { siteConfig } from "@/data/site-config";
+import { TextReveal } from "@/components/motion/text-reveal";
+import { ScrollReveal } from "@/components/motion/scroll-reveal";
+import { AnimatedDivider } from "@/components/motion/animated-divider";
 
 export function Footer() {
   return (
@@ -10,22 +13,25 @@ export function Footer() {
       <div className="w-full max-w-[1920px] mx-auto">
         {/* Top Half — Get In Touch */}
         <div className="mb-20">
-          <div className="flex items-center gap-2 mb-6">
+          <ScrollReveal direction="up" distance={10} duration={0.6} threshold={0.15} className="flex items-center gap-2 mb-6">
             <span className="w-1.5 h-1.5 bg-[#F2F0EB] inline-block" />
             <span className="text-[12px] font-normal tracking-[0.05em] text-[#F2F0EB]">
               {siteConfig.contact.tag}
             </span>
-          </div>
+          </ScrollReveal>
 
-          <h2 className="text-[28px] md:text-[36px] lg:text-[42px] leading-[1.15] tracking-[-0.02em] font-medium mb-10 max-w-3xl">
-            {siteConfig.contact.headingLine1}
-            <br />
-            <span className="font-extralight text-[#A6A39D]">
-              {siteConfig.contact.headingLine2}
-            </span>
+          <h2 className="text-[28px] md:text-[36px] lg:text-[42px] leading-[1.15] tracking-[-0.02em] font-medium mb-10 max-w-3xl space-y-1">
+            <TextReveal delay={0.1} duration={0.9} threshold={0.15}>
+              {siteConfig.contact.headingLine1}
+            </TextReveal>
+            <TextReveal delay={0.25} duration={0.9} threshold={0.15}>
+              <span className="font-extralight text-[#A6A39D]">
+                {siteConfig.contact.headingLine2}
+              </span>
+            </TextReveal>
           </h2>
 
-          <div className="flex flex-wrap items-center gap-6">
+          <ScrollReveal direction="up" distance={14} duration={0.7} delay={0.3} threshold={0.15} className="flex flex-wrap items-center gap-6">
             <a
               href={siteConfig.contact.whatsappUrl}
               target="_blank"
@@ -43,23 +49,28 @@ export function Footer() {
               <span>EMAIL STUDIO</span>
               <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
-          </div>
+          </ScrollReveal>
         </div>
 
-        {/* Divider */}
-        <div className="w-full h-[1px] bg-[#222222] mb-14" />
+        {/* Expanding Hairline Divider */}
+        <AnimatedDivider
+          origin="left"
+          duration={1.2}
+          threshold={0.1}
+          className="w-full h-[1px] bg-[#222222] mb-14"
+        />
 
-        {/* Bottom Half — 4-Column Footer Bar */}
+        {/* Bottom Half — 4-Column Footer Bar with Staggered Entrance */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-8 items-start">
           {/* Col 1: Emblem Cross Logo */}
-          <div className="md:col-span-3">
+          <ScrollReveal direction="up" distance={10} duration={0.6} delay={0.1} threshold={0.1} className="md:col-span-3">
             <Link href="/" aria-label="NOIREL STUDIO Home">
               <FooterCrossEmblem className="w-12 h-12 text-[#F2F0EB] hover:opacity-80 transition-opacity" />
             </Link>
-          </div>
+          </ScrollReveal>
 
           {/* Col 2: General Inquiries */}
-          <div className="md:col-span-3 space-y-3">
+          <ScrollReveal direction="up" distance={10} duration={0.6} delay={0.18} threshold={0.1} className="md:col-span-3 space-y-3">
             <h5 className="text-[10px] tracking-[0.18em] uppercase text-[#777570] font-medium">
               {siteConfig.footerColumns.generalInquiries.title}
             </h5>
@@ -84,10 +95,10 @@ export function Footer() {
                 {siteConfig.contact.address}
               </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Col 3: Social Media */}
-          <div className="md:col-span-2 space-y-3">
+          <ScrollReveal direction="up" distance={10} duration={0.6} delay={0.26} threshold={0.1} className="md:col-span-2 space-y-3">
             <h5 className="text-[10px] tracking-[0.18em] uppercase text-[#777570] font-medium">
               {siteConfig.footerColumns.socialMedia.title}
             </h5>
@@ -104,10 +115,10 @@ export function Footer() {
                 </a>
               ))}
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Col 4: Menu Links & Copyright */}
-          <div className="md:col-span-4 flex flex-col justify-between h-full space-y-8">
+          <ScrollReveal direction="up" distance={10} duration={0.6} delay={0.34} threshold={0.1} className="md:col-span-4 flex flex-col justify-between h-full space-y-8">
             <nav className="flex flex-wrap items-center gap-x-6 gap-y-2">
               {siteConfig.footerColumns.menu.links.map((link) => (
                 <Link
@@ -123,7 +134,7 @@ export function Footer() {
             <div className="text-[10px] tracking-[0.08em] text-[#777570] font-light">
               <span className="font-extralight">2026 ©</span> by NOIREL STUDIO. All rights reserved.
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </footer>

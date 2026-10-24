@@ -3,10 +3,12 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { InstagramIcon } from "@/components/ui/icons";
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { siteConfig } from "@/data/site-config";
+import { LUXURY_EASE } from "@/components/motion/motion-tokens";
 import { cn } from "@/lib/utils";
 
 export function Header() {
@@ -51,42 +53,68 @@ export function Header() {
       >
         <div className="w-full flex items-center justify-between">
           {/* Brand Logo */}
-          <BrandLogo showSubtitle={true} />
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: LUXURY_EASE }}
+          >
+            <BrandLogo showSubtitle={true} />
+          </motion.div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-9">
-            {siteConfig.navLinks.map((link) => {
+            {siteConfig.navLinks.map((link, idx) => {
               const isProjects = link.href === "/projects";
               const isActive = isProjects
                 ? pathname.startsWith("/projects")
                 : pathname === link.href;
 
               return (
-                <Link
+                <motion.div
                   key={link.label}
-                  href={link.href}
-                  className={cn(
-                    "text-[10px] tracking-[0.16em] uppercase font-medium transition-colors duration-200",
-                    isActive
-                      ? "text-[#F2F0EB]"
-                      : "text-[#A6A39D] hover:text-[#F2F0EB]"
-                  )}
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.15 + idx * 0.06,
+                    ease: LUXURY_EASE,
+                  }}
                 >
-                  {link.label}
-                </Link>
+                  <Link
+                    href={link.href}
+                    className={cn(
+                      "text-[10px] tracking-[0.16em] uppercase font-medium transition-colors duration-200",
+                      isActive
+                        ? "text-[#F2F0EB]"
+                        : "text-[#A6A39D] hover:text-[#F2F0EB]"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
               );
             })}
 
             {/* Instagram Link */}
-            <a
-              href={siteConfig.contact.instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#A6A39D] hover:text-[#F2F0EB] transition-colors pl-2"
-              aria-label="Instagram"
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.5,
+                delay: 0.15 + siteConfig.navLinks.length * 0.06,
+                ease: LUXURY_EASE,
+              }}
             >
-              <InstagramIcon className="w-4 h-4" />
-            </a>
+              <a
+                href={siteConfig.contact.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#A6A39D] hover:text-[#F2F0EB] transition-colors pl-2 inline-block"
+                aria-label="Instagram"
+              >
+                <InstagramIcon className="w-4 h-4" />
+              </a>
+            </motion.div>
           </nav>
 
           {/* Mobile Menu Button */}
